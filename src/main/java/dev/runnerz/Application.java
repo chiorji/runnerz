@@ -23,7 +23,6 @@ private static final Logger log = LoggerFactory.getLogger(Application.class);
 	@Bean
 	CommandLineRunner runner() {
 		return args -> {
-			log.info("Hello, Spring Boot!");
 			Run run = new Run(1, "Morning Run", LocalDateTime.now(), LocalDateTime.now().plus(1, ChronoUnit.HOURS), 3, Location.OUTDOOR);
 			log.info("Run: {}", run);
 		};
