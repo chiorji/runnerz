@@ -10,11 +10,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class JdbcClientRunRepository {
-    private static final Logger log = LoggerFactory.getLogger(JdbcClientRunRepository.class);
+public class JdbcRunRepository {
+    private static final Logger log = LoggerFactory.getLogger(JdbcRunRepository.class);
     private final JdbcClient jdbcClient;
 
-    public JdbcClientRunRepository(JdbcClient jdbcClient) {
+    public JdbcRunRepository(JdbcClient jdbcClient) {
         this.jdbcClient = jdbcClient;
     }
 
@@ -46,7 +46,7 @@ public class JdbcClientRunRepository {
     }
 
     public void delete(Integer id) {
-        var updated = jdbcClient.sql("DELETE FROM run WHERE id = ?")
+        var updated = jdbcClient.sql("DELETE FROM run WHERE id = :id")
                 .param("id", id)
                 .update();
         Assert.state(updated == 1, "Failed to delete run" + id);
