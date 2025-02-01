@@ -24,13 +24,16 @@ public class RunJsonDataLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        log.info("Size of runs: {}", runRepository.count());
-        try (InputStream inputStream = TypeReference.class.getResourceAsStream("/data/runs.json")) {
-            Runs allRuns = objectMapper.readValue(inputStream, Runs.class);
-            runRepository.saveAll(allRuns.runs());
-            log.info("Loaded {} Runs", allRuns.runs().size());
-        } catch (IOException e) {
-            throw new RuntimeException("Failed to load Runs", e);
+        if (runRepository.count() == 0) {
+            try (InputStream inputStream = TypeReference.class.getResourceAsStream("/data/runs.json")) {
+                Runs allRuns = objectMapper.readValue(inputStream, Runs.class);
+                runRepository.saveAll(allRuns.runs());
+                log.info("Loaded {} Runs", allRuns.runs().size());
+            } catch (IOException e) {
+                throw new RuntimeException("Failed to load Runs", e);
+            }
+        } else {
+            log.info("Runs already loaded");
         }
     }
 }
