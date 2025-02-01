@@ -20,7 +20,7 @@ public class RunController {
 
     @GetMapping("")
     List<Run> findAll() {
-        return new ArrayList<>(runRepository.findAll());
+        return runRepository.findAll();
     }
 
     @GetMapping("/{id}")
